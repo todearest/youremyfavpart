@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================================
   // 3. CORE PAGE LOGIC (Wrapped for Reusability)
   // ==========================================
-  // We wrap this in a function so we can re-trigger it every time a new page is loaded via AJAX.
   const initPageLogic = () => {
     // A. Fade-Up Animations
     const fadeElements = document.querySelectorAll(".fade-up");
@@ -78,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillStyle = "#8b5a65";
         ctx.textAlign = "center";
 
-        // Adjust text for smaller mobile screens
         if (window.innerWidth < 768) {
           ctx.fillText(
             "Scratch to unveil...",
@@ -95,10 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       setTimeout(initCanvas, 300);
-      // Store the initial screen width
+      
+      // Fix untuk masalah canvas kerestart ketika scroll di HP
       let cachedWidth = window.innerWidth;
-
-      // Only redraw the canvas if the WIDTH changes, ignoring height changes from scrolling
       window.addEventListener("resize", () => {
         if (window.innerWidth !== cachedWidth) {
           cachedWidth = window.innerWidth;
@@ -116,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const scratch = (e) => {
         if (!isDrawing) return;
-        e.preventDefault(); // Traps scrolling ONLY inside the canvas bounds
+        e.preventDefault(); 
         const pos = getTouchPos(e);
         ctx.globalCompositeOperation = "destination-out";
         ctx.beginPath();
@@ -130,19 +127,22 @@ document.addEventListener("DOMContentLoaded", () => {
         scratch(e);
       });
       canvas.addEventListener("mousemove", scratch);
-      window.addEventListener("mouseup", () => (isDrawing = false));
+      document.addEventListener("mouseup", () => { isDrawing = false; });
 
-      // Mobile events
+      // Mobile events - Fix agar tidak stuck/macet saat di touch
       canvas.addEventListener(
         "touchstart",
         (e) => {
           isDrawing = true;
           scratch(e);
         },
-        { passive: false },
+        { passive: false }
       );
       canvas.addEventListener("touchmove", scratch, { passive: false });
-      window.addEventListener("touchend", () => (isDrawing = false));
+      
+      // Bind event 'end' ke document agar HP tidak bingung
+      document.addEventListener("touchend", () => { isDrawing = false; });
+      document.addEventListener("touchcancel", () => { isDrawing = false; });
     }
   };
 
@@ -155,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", async (e) => {
     const link = e.target.closest("a");
 
-    // Only intercept clicks on local HTML links
     if (
       link &&
       link.getAttribute("href") &&
@@ -165,11 +164,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const url = link.getAttribute("href");
       const mainElement = document.querySelector("main");
 
-      // 1. Fade out current content
       mainElement.style.opacity = "0";
 
       try {
-        // 2. Fetch the next page in the background
         const response = await fetch(url);
         const html = await response.text();
         const parser = new DOMParser();
@@ -178,21 +175,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
           if (newMain) {
-            // 3. Swap the content
             mainElement.innerHTML = newMain.innerHTML;
             mainElement.className = newMain.className;
 
-            // 4. Update the browser URL without reloading
             history.pushState(null, "", url);
             window.scrollTo({ top: 0, behavior: "smooth" });
 
-            // 5. Re-initialize the animations and scratch card
             initPageLogic();
-
-            // 6. Fade the new content back in
             mainElement.style.opacity = "1";
           }
-        }, 400); // Wait for the fade-out CSS transition
+        }, 400); 
       } catch (err) {
         console.error(
           "Seamless navigation failed, falling back to standard reload.",
@@ -203,7 +195,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Handle browser back/forward buttons smoothly
   window.addEventListener("popstate", async () => {
     const mainElement = document.querySelector("main");
     mainElement.style.opacity = "0";
