@@ -413,6 +413,13 @@ body.poetry-poster {
   cursor: crosshair;
   z-index: 10;
   touch-action: none; /* Fix untuk macet saat scratching di Mobile */
+  transition: opacity 0.8s ease; /* Tambahkan ini agar memudar perlahan */
+}
+
+/* Auto-Reveal */
+#scratch-canvas.cleared {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* =========================================
