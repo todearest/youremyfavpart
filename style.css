@@ -413,3 +413,28 @@ body.poetry-poster {
   cursor: crosshair;
   z-index: 10;
 }
+
+main {
+    transition: opacity 0.4s ease;
+}
+
+@media (max-width: 768px) {
+    .scratch-container {
+        width: 85%; /* Leaves 7.5% safe space on both sides for scrolling */
+        max-width: 340px;
+        margin: 0 auto;
+    }
+    
+    .scratch-letter {
+        padding: 25px 20px; /* Reduce padding to fit text gracefully */
+    }
+    
+    .scratch-letter h3 {
+        font-size: 1.8rem;
+    }
+    
+    .scratch-letter p {
+        font-size: 1.05rem;
+        margin-bottom: 10px;
+    }
+}
