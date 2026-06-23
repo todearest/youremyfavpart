@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>A Secret For You</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💖</text></svg>"
+    />
+    <!-- Linking directly to root CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="poetry-poster">
+    <!-- Floating Music Button & Back Link -->
+    <button id="music-btn" class="floating-btn">♡ Play Music</button>
+    <a href="index.html" class="back-link">⟵ Return</a>
+
+    <!-- Floating Aesthetic Decorations (Images 7, 8, 9) -->
+    <div class="decor d1" data-speed="0.05">
+      <img src="asset/7.jpg" onerror="this.src = 'asset/7.png'" alt="Flower" />
+    </div>
+    <div class="decor d2" data-speed="-0.03">
+      <img src="asset/8.jpg" onerror="this.src = 'asset/8.png'" alt="Paws" />
+    </div>
+    <div class="decor d3" data-speed="0.08">
+      <img src="asset/9.jpg" onerror="this.src = 'asset/9.png'" alt="Heart" />
+    </div>
+
+    <main
+      class="scrapbook-canvas"
+      style="justify-content: center; min-height: 100vh"
+    >
+      <!-- Interactive Scratch Card Container -->
+      <div class="scratch-container fade-up">
+        <div class="scratch-content">
+          <img
+            src="asset/11.jpg"
+            onerror="this.src = 'asset/11.png'"
+            alt="Secret Memory"
+            class="scratch-img"
+          />
+          <div class="scratch-letter">
+            <h3>To My Endless Love,</h3>
+            <p>
+              Happy Anniversary! Looking back at everything we have shared, I am
+              overwhelmed by how lucky I am to be loved by you. You have this
+              incredible way of making the ordinary feel extraordinary, turning
+              quiet moments into my absolute favorite memories. Every laugh,
+              every late-night conversation, and every gentle touch reminds me
+              that I have found my forever in you.
+            </p>
+            <p>
+              Thank you for being my constant, my safe haven, and my biggest
+              supporter. I promise to keep choosing you, to keep holding your
+              hand through whatever life throws our way, and to love you more
+              deeply with every passing day. Here is to all the beautiful
+              chapters we have yet to write. I love you, always and completely.
+            </p>
+          </div>
+        </div>
+        <!-- The canvas overlay that gets scratched away -->
+        <canvas id="scratch-canvas"></canvas>
+      </div>
+    </main>
+
+    <!-- Bucin Music (Replace src with actual mp3 file later) -->
+    <audio id="bg-music" loop>
+      <source src="asset/bucin-song.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Linking directly to root JS -->
+    <script src="script.js"></script>
+  </body>
+</html>

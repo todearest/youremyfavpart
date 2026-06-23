@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Letters — Rasa</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lato:wght@300;400&family=Dancing+Script:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --blush: #fdeef4;
+        --petal: #f9c8d9;
+        --rose: #e0829a;
+        --dusty: #c46e8a;
+        --ivory: #fff8f9;
+        --mauve: #9b4f6a;
+        --cream: #fef5f0;
+        --text: #4a2235;
+        --soft: #8b5568;
+        --ink: #2d1520;
+      }
+      /* Feelings hero */
+      .feelings-hero {
+        min-height: 55vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 9rem 2rem 5rem;
+        background: var(--blush);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Large background heart svg */
+      .bg-heart {
+        position: absolute;
+        width: min(600px, 90vw);
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.06;
+        pointer-events: none;
+      }
+
+      .feelings-hero h1 {
+        font-size: clamp(3rem, 8vw, 7rem);
+        font-style: italic;
+        color: var(--ink);
+        line-height: 1;
+        margin-bottom: 1rem;
+      }
+      .feelings-hero p {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.1rem;
+        color: var(--soft);
+        max-width: 380px;
+      }
+
+      /* INTERACTIVE feelings selector */
+      .feelings-section {
+        padding: 7rem 2rem;
+        background: var(--ivory);
+        text-align: center;
+      }
+      .feelings-title {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        color: var(--ink);
+        margin-bottom: 0.4rem;
+      }
+      .feelings-sub {
+        font-size: 0.72rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--soft);
+        margin-bottom: 3rem;
+      }
+      .feelings-petals {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        max-width: 660px;
+        margin: 0 auto 3.5rem;
+      }
+      .feeling-tag {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.05rem;
+        padding: 0.5rem 1.4rem;
+        border: 1px solid var(--petal);
+        border-radius: 50px;
+        color: var(--dusty);
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.35s;
+        position: relative;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .feeling-tag::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--petal);
+        border-radius: inherit;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s;
+        z-index: -1;
+      }
+      .feeling-tag:hover::before,
+      .feeling-tag.active::before {
+        transform: scaleX(1);
+      }
+      .feeling-tag:hover,
+      .feeling-tag.active {
+        color: var(--mauve);
+        border-color: var(--rose);
+      }
+      .feeling-display {
+        min-height: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      .feeling-poem-text {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+        color: var(--ink);
+        max-width: 560px;
+        line-height: 1.7;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: all 0.65s ease;
+        white-space: pre-line;
+      }
+      .feeling-poem-text.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* MOOD BOARD — visual grid of emotions */
+      .mood-board {
+        padding: 5rem 2rem;
+        background: var(--blush);
+      }
+      .mood-board-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+      .mood-board-header h2 {
+        font-size: clamp(1.8rem, 4vw, 3rem);
+        font-style: italic;
+        color: var(--ink);
+      }
+      .mood-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 200px);
+        gap: 12px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .mood-cell {
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .mood-cell img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        transition: transform 0.6s ease;
+        display: block;
+      }
+      .mood-cell.deco img {
+        object-position: center;
+      }
+      .mood-cell:hover img {
+        transform: scale(1.07);
+      }
+
+      /* Special spanning cells */
+      .mc-tall {
+        grid-row: span 2;
+      }
+      .mc-wide {
+        grid-column: span 2;
+      }
+
+      .mood-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          160deg,
+          transparent 40%,
+          rgba(45, 21, 32, 0.6)
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 1.2rem;
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .mood-cell:hover .mood-overlay {
+        opacity: 1;
+      }
+      .mood-overlay .mo-word {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.3rem;
+        color: white;
+      }
+      .mood-overlay .mo-line {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-top: 0.2rem;
+      }
+
+      /* Deco text cell */
+      .mood-cell.text-cell {
+        background: var(--petal);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      .mood-cell.text-cell p {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1.15rem;
+        color: var(--mauve);
+        text-align: center;
+        line-height: 1.7;
+      }
+
+      /* SCROLLING TEXT MARQUEE */
+      .marquee-wrap {
+        background: var(--rose);
+        padding: 1rem 0;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .marquee-track {
+        display: inline-block;
+        animation: marquee 30s linear infinite;
+        white-space: nowrap;
+      }
+      .marquee-track span {
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-size: 1rem;
+        color: white;
+        padding: 0 2.5rem;
+        opacity: 0.9;
+      }
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mood-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+        }
+        .mc-tall {
+          grid-row: span 1;
+        }
+        .mc-wide {
+          grid-column: span 1;
+        }
+      }
+      @media (max-width: 480px) {
+        .mood-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="petals-canvas" aria-hidden="true"></canvas>
+    <div class="page-transition" id="pt"></div>
+
+    <nav id="main-nav" aria-label="Main navigation">
+      <a href="index.html" class="nav-logo">love letters</a>
+      <ul class="nav-links" id="nav-links" role="list">
+        <li><a href="index.html">Sweet Home</a></li>
+        <li><a href="letters.html">Heart Letter</a></li>
+        <li><a href="feelings.html" aria-current="page">To You</a></li>
+      </ul>
+      <div style="display: flex; align-items: center; gap: 0.8rem">
+        <span class="music-track-label" id="music-label"></span>
+        <button
+          class="music-btn"
+          id="music-btn"
+          aria-label="Play or pause music"
+        >
+          <span id="music-icon"></span>
+          <span>Musik</span>
+        </button>
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <main class="page">
+      <!-- HERO -->
+      <section class="feelings-hero">
+        <svg
+          class="bg-heart"
+          viewBox="0 0 100 90"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M50 80 C50 80 10 55 10 28 C10 14 20 5 33 5 C41 5 48 9 50 14 C52 9 59 5 67 5 C80 5 90 14 90 28 C90 55 50 80 50 80Z"
+            fill="var(--rose)"
+          />
+        </svg>
+        <p class="hero-eyebrow">yang kadang tidak punya nama</p>
+        <h1>Rasa</h1>
+        <p>Pilih satu — dan biarkan kata menemukan jalannya sendiri.</p>
+      </section>
+
+      <!-- MARQUEE -->
+      <div class="marquee-wrap" aria-hidden="true">
+        <div class="marquee-track">
+          <span>rindu</span><span>·</span> <span>bahagia</span><span>·</span>
+          <span>gemetar</span><span>·</span> <span>takut kehilangan</span
+          ><span>·</span> <span>jatuh cinta lagi</span><span>·</span>
+          <span>syukur</span><span>·</span> <span>tenang</span><span>·</span>
+          <span>rindu</span><span>·</span> <span>bahagia</span><span>·</span>
+          <span>gemetar</span><span>·</span> <span>takut kehilangan</span
+          ><span>·</span> <span>jatuh cinta lagi</span><span>·</span>
+          <span>syukur</span><span>·</span> <span>tenang</span><span>·</span>
+        </div>
+      </div>
+
+      <!-- FEELINGS INTERACTIVE -->
+      <section class="feelings-section">
+        <h2 class="feelings-title reveal">Apa yang kamu rasakan?</h2>
+        <p class="feelings-sub reveal">sentuh salah satu</p>
+
+        <div
+          class="feelings-petals reveal"
+          role="group"
+          aria-label="Choose a feeling"
+        >
+          <button class="feeling-tag" data-feeling="Safe">Aman</button>
+          <button class="feeling-tag" data-feeling="Butterflies">
+            Deg-degan
+          </button>
+          <button class="feeling-tag" data-feeling="Aching">Rindu</button>
+          <button class="feeling-tag" data-feeling="Giddy">
+            Senang Tiba-tiba
+          </button>
+          <button class="feeling-tag" data-feeling="Complete">Lengkap</button>
+          <button class="feeling-tag" data-feeling="Forever">Selamanya</button>
+        </div>
+
+        <div class="feeling-display" id="feeling-display" aria-live="polite">
+          <p class="feeling-poem-text" style="opacity: 0.3; transform: none">
+            sentuh salah satu rasa di atas…
+          </p>
+        </div>
+      </section>
+
+      <!-- MOOD BOARD GRID -->
+      <section class="mood-board">
+        <div class="mood-board-header reveal">
+          <p
+            style="
+              font-size: 0.7rem;
+              letter-spacing: 0.25em;
+              text-transform: uppercase;
+              color: var(--rose);
+              margin-bottom: 0.5rem;
+            "
+          >
+            papan suasana
+          </p>
+          <h2>Mood board cinta ini</h2>
+        </div>
+        <div class="mood-grid reveal">
+          <!-- tall portrait -->
+          <div class="mood-cell mc-tall">
+            <img src="asset/3.jpg" alt="Portrait portrait" loading="lazy" />
+            <div class="mood-overlay">
+              <span class="mo-word">Kalem</span>
+              <span class="mo-line">yang menjaga tanpa suara</span>
+            </div>
+          </div>
+
+          <!-- top middle -->
+          <div class="mood-cell">
+            <img
+              src="asset/7.jpg"
+              alt="Bunga"
+              loading="lazy"
+              style="object-position: center"
+            />
+            <div class="mood-overlay">
+              <span class="mo-word">Mekar</span>
+              <span class="mo-line">tanpa alasan selain indah</span>
+            </div>
+          </div>
+
+          <!-- top right -->
+          <div class="mood-cell">
+            <img
+              src="asset/9.jpg"
+              alt="Heart quote"
+              loading="lazy"
+              style="object-position: center"
+            />
+            <div class="mood-overlay">
+              <span class="mo-word">My everything</span>
+              <span class="mo-line">kata yang tidak butuh penjelasan</span>
+            </div>
+          </div>
+
+          <!-- middle row left wide — text -->
+          <div class="mood-cell text-cell mc-wide">
+            <p>
+              "Cinta yang tulus tidak perlu dramatis — ia datang pelan,
+              diam-diam, lalu tiba-tiba sudah menjadi bagian dari napasmu."
+            </p>
+          </div>
+
+          <!-- bottom left -->
+          <div class="mood-cell">
+            <img src="asset/2.jpg" alt="Portrait" loading="lazy" />
+            <div class="mood-overlay">
+              <span class="mo-word">Lembut</span>
+              <span class="mo-line">tapi meninggalkan bekas</span>
+            </div>
+          </div>
+
+          <!-- bottom middle -->
+          <div class="mood-cell">
+            <img
+              src="asset/8.jpg"
+              alt="Paws"
+              loading="lazy"
+              style="object-position: center"
+            />
+            <div class="mood-overlay">
+              <span class="mo-word">Kecil tapi hangat</span>
+              <span class="mo-line">seperti tangan yang menggapai</span>
+            </div>
+          </div>
+
+          <!-- bottom right -->
+          <div class="mood-cell">
+            <img
+              src="asset/10.jpg"
+              alt="Love note"
+              loading="lazy"
+              style="object-position: center"
+            />
+            <div class="mood-overlay">
+              <span class="mo-word">Coretan</span>
+              <span class="mo-line">yang berbunyi lebih dari kata</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final closing section -->
+      <section
+        style="padding: 7rem 2rem; background: var(--cream); text-align: center"
+      >
+        <div class="reveal">
+          <p class="hero-eyebrow">terakhir</p>
+          <h2
+            style="
+              font-size: clamp(2rem, 5vw, 4rem);
+              font-style: italic;
+              color: var(--ink);
+              max-width: 600px;
+              margin: 0 auto 2rem;
+              line-height: 1.3;
+            "
+          >
+            Tidak semua perasaan butuh kata —<br />
+            tapi kamu layak mendapatkan keduanya.
+          </h2>
+          <a
+            href="letters.html"
+            style="
+              display: inline-block;
+              font-family: &quot;Cormorant Garamond&quot;, serif;
+              font-style: italic;
+              font-size: 1.05rem;
+              color: var(--dusty);
+              border-bottom: 1px solid var(--petal);
+              padding-bottom: 2px;
+              text-decoration: none;
+              transition: color 0.3s;
+            "
+          >
+            baca surat-suratnya →
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-logo">love letters</div>
+      <p>
+        dibuat dengan <span class="heart-deco">♡</span> untuk kamu<br />
+        <a href="index.html">← Take me back</a>
+      </p>
+    </footer>
+
+    <script src="main.js"></script>
+  </body>
+</html>

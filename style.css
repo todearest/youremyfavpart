@@ -1,0 +1,415 @@
+/* ===========================
+   SOFT PINK POETRY — ANNIVERSARY THEME
+   =========================== */
+
+:root {
+  --bg-pink: #fdf5f7;
+  --text-dark: #8b5a65;
+  --text-light: #e5738b;
+  --card-border: #ffb6c1;
+  --shadow: 0 10px 30px rgba(229, 115, 139, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.poetry-poster {
+  background: linear-gradient(135deg, #fdf5f7 0%, #fff0f5 50%, #fbeff2 100%);
+  color: var(--text-dark);
+  font-family: "Cormorant Garamond", serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Hide standard scrollbar to feel like a canvas */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* --- FLOATING DECORATIONS --- */
+.decor {
+  position: fixed;
+  z-index: 0;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: float-around 8s infinite ease-in-out;
+}
+.decor img {
+  width: 100%;
+  border-radius: 10px;
+  mix-blend-mode: multiply;
+}
+.d1 {
+  top: 10%;
+  left: 5%;
+  width: 180px;
+  transform: rotate(-15deg);
+}
+.d2 {
+  bottom: 15%;
+  right: 8%;
+  width: 150px;
+  transform: rotate(20deg);
+}
+.d3 {
+  top: 45%;
+  right: -5%;
+  width: 220px;
+  opacity: 0.4;
+}
+
+@keyframes float-around {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+/* --- MUSIC BUTTON --- */
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--card-border);
+  color: var(--text-dark);
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  box-shadow: var(--shadow);
+}
+.floating-btn:hover {
+  background: var(--card-border);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* --- MAIN CANVAS --- */
+.scrapbook-canvas {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10vh 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15vh;
+}
+
+/* Typography */
+.poster-header {
+  text-align: center;
+  margin-bottom: 5vh;
+}
+.eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 15px;
+}
+.main-title {
+  font-size: clamp(4rem, 10vw, 7rem);
+  font-style: italic;
+  line-height: 0.9;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+.subtitle {
+  font-size: 1.5rem;
+  font-style: italic;
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+/* --- INTERACTIVE CARDS --- */
+.flip-card {
+  width: 300px;
+  height: 400px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.flip-card:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 8px solid white;
+}
+.card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(10%);
+  transition: filter 0.4s;
+}
+.card-front:hover img {
+  filter: sepia(0%);
+}
+
+.card-back {
+  background: white;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--text-dark);
+}
+
+/* --- ASYMMETRICAL LAYOUTS --- */
+.poster-split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+}
+.text-zone h2 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  line-height: 1.2;
+}
+.text-zone i {
+  color: var(--text-light);
+}
+.img-zone img {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.polaroid-tilt {
+  transform: rotate(3deg);
+  transition: transform 0.4s;
+}
+.polaroid-tilt:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+.polaroid-tilt-reverse {
+  transform: rotate(-4deg);
+  transition: transform 0.4s;
+}
+.polaroid-tilt-reverse:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+/* Center Poem */
+.center-poem {
+  text-align: center;
+  max-width: 600px;
+}
+.center-img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow);
+  border: 8px solid white;
+}
+.poem-text {
+  font-size: 1.6rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+/* Raw Grid */
+.muse-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.grid-img img {
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 15px;
+  border: 8px solid white;
+  box-shadow: var(--shadow);
+}
+
+.end-card {
+  margin-top: 5vh;
+}
+
+/* --- ANIMATIONS --- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 1.2s ease-out,
+    transform 1.2s ease-out;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .decor {
+    display: none;
+  } /* Hide background floating elements to prevent mobile clutter */
+  .scrapbook-canvas {
+    padding: 8vh 15px;
+    gap: 8vh;
+  }
+  .poster-split {
+    flex-direction: column;
+    text-align: center;
+  }
+  .muse-grid {
+    flex-direction: column;
+  }
+  .flip-card {
+    align-self: center !important;
+    margin-left: 0 !important;
+    width: 100%;
+    max-width: 320px;
+  }
+  .poem-text {
+    font-size: 1.3rem;
+  }
+  .grid-img img {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+  }
+}
+
+/* =========================================
+   NEW REVEAL PAGE & BUTTON STYLES
+   ========================================= */
+
+/* New Link Button on Index */
+.btn-poetry {
+  display: inline-block;
+  padding: 12px 35px;
+  border: 1px dashed var(--text-dark);
+  color: var(--text-dark);
+  font-size: 1.3rem;
+  font-style: italic;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.4s ease;
+  background: rgba(255, 255, 255, 0.4);
+}
+.btn-poetry:hover {
+  background: var(--card-border);
+  color: white;
+  border-color: var(--card-border);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.back-link {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  z-index: 1000;
+  color: var(--text-dark);
+  font-style: italic;
+  font-size: 1.2rem;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.back-link:hover {
+  opacity: 1;
+}
+
+/* Scratch to Reveal Card */
+.scratch-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  border: 8px solid white;
+  background: white;
+  /* This prevents the canvas from spilling out of the rounded corners */
+  overflow: hidden;
+}
+
+.scratch-content {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.scratch-img {
+  width: 100%;
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+  filter: sepia(15%) contrast(1.1);
+}
+
+.scratch-letter {
+  padding: 40px 30px;
+  background: var(--bg-pink);
+  text-align: center;
+}
+
+.scratch-letter h3 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.scratch-letter p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+#scratch-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  z-index: 10;
+}

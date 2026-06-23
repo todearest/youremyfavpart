@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Happy Anniversary, My Love</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💖</text></svg>"
+    />
+    <!-- Linking directly to root CSS -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="poetry-poster">
+    <!-- Floating Music Button -->
+    <button id="music-btn" class="floating-btn">♡ Play Music</button>
+
+    <!-- Floating Aesthetic Decorations (Images 7, 8, 9) -->
+    <div class="decor d1" data-speed="0.05">
+      <img src="asset/7.jpg" onerror="this.src = 'asset/7.png'" alt="Flower" />
+    </div>
+    <div class="decor d2" data-speed="-0.03">
+      <img src="asset/8.jpg" onerror="this.src = 'asset/8.png'" alt="Paws" />
+    </div>
+    <div class="decor d3" data-speed="0.08">
+      <img src="asset/9.jpg" onerror="this.src = 'asset/9.png'" alt="Heart" />
+    </div>
+
+    <main class="scrapbook-canvas">
+      <!-- Anniversary Hero Title -->
+      <header class="poster-header fade-up">
+        <p class="eyebrow">TO MY EVERYTHING</p>
+        <h1 class="main-title">Happy<br />Anniversary.</h1>
+        <p class="subtitle">
+          Thank you for being the most beautiful poetry my heart has ever read.
+        </p>
+
+        <div style="margin-top: 35px">
+          <a href="reveal.html" class="btn-poetry">Unveil My Heart 〰</a>
+        </div>
+      </header>
+
+      <!-- Interactive Flip Card -->
+      <div class="flip-card fade-up">
+        <div class="card-inner">
+          <div class="card-front">
+            <img
+              src="asset/1.jpg"
+              onerror="this.src = 'asset/1.png'"
+              alt="Muse"
+            />
+          </div>
+          <div class="card-back">
+            <p>
+              Every single day with you is a gift. Thank you for staying by my
+              side, through the highs and the lows. I love you more than words
+              could ever say.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Asymmetrical Text & Image Grid -->
+      <div class="poster-split fade-up">
+        <div class="text-zone">
+          <h2>I choose you. <br /><i>Today, tomorrow, and forever.</i></h2>
+        </div>
+        <div class="img-zone style-raw polaroid-tilt">
+          <img
+            src="asset/2.jpg"
+            onerror="this.src = 'asset/2.png'"
+            alt="Muse"
+          />
+        </div>
+      </div>
+
+      <!-- Flip Card 2 -->
+      <div
+        class="flip-card fade-up"
+        style="align-self: flex-start; margin-left: 10%"
+      >
+        <div class="card-inner">
+          <div class="card-front">
+            <img
+              src="asset/3.jpg"
+              onerror="this.src = 'asset/3.png'"
+              alt="Muse"
+            />
+          </div>
+          <div class="card-back">
+            <p>
+              You are my safest place and my greatest adventure. Thank you for
+              loving me exactly as I am.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Emotional Block -->
+      <div class="center-poem fade-up">
+        <img
+          src="asset/4.jpg"
+          onerror="this.src = 'asset/4.png'"
+          alt="Muse"
+          class="center-img"
+        />
+        <p class="poem-text">
+          "Time stops every time you smile. <br />
+          Looking back at our journey, my heart is just so full of gratitude.
+          <br />
+          Thank you for the endless patience, the warm hugs, and for being the
+          best partner anyone could ever ask for."
+        </p>
+      </div>
+
+      <!-- Poster Grid (Images 5 & 6) -->
+      <div class="muse-grid fade-up">
+        <div class="grid-img style-raw">
+          <img
+            src="asset/5.jpg"
+            onerror="this.src = 'asset/5.png'"
+            alt="Muse"
+          />
+        </div>
+        <div class="grid-img style-raw polaroid-tilt-reverse">
+          <img
+            src="asset/6.jpg"
+            onerror="this.src = 'asset/6.png'"
+            alt="Muse"
+          />
+        </div>
+      </div>
+
+      <!-- Final Dedication Card -->
+      <div class="flip-card fade-up end-card">
+        <div class="card-inner">
+          <div class="card-front">
+            <img
+              src="asset/10.jpg"
+              onerror="this.src = 'asset/10.png'"
+              alt="Muse"
+            />
+          </div>
+          <div class="card-back">
+            <p>
+              Here is to us, to our memories, and to the beautiful future ahead.
+              Happy Anniversary, my love. 💖
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bucin Music (Replace src with actual mp3 file later) -->
+    <audio id="bg-music" loop>
+      <source src="asset/bucin-song.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- Linking directly to root JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
